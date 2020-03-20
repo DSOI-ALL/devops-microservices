@@ -1,32 +1,20 @@
 FROM node:alpine
 
-LABEL author="Dan Wahlin" 
-
 WORKDIR /var/www/angularnoderestfulservice
 
-RUN npm install nodemon -g 
+COPY . /var/www/angularnoderestfulservice
+
+RUN npm install nodemon -g
 
 EXPOSE 3000
 
 ENTRYPOINT ["nodemon", "server.js"]
 
-
-
-
-
-
-
-
-
-
-
-
-
 # Build: docker build -f node.dockerfile -t danwahlin/node .
 
 # Option 1
 # Start MongoDB and Node (link Node to MongoDB container with legacy linking)
- 
+
 # docker run -d --name mongodb mongo
 # docker run -d -p 3000:3000 --link mongodb --name nodeapp danwahlin/node
 

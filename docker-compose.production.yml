@@ -1,0 +1,61 @@
+# Run docker-compose up
+version: '3.7'
+
+services:
+
+  nginx:
+    container_name: nginx
+    image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-nginx:latest
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - app-network
+
+  node:
+    container_name: nodeapp
+    image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-node:latest
+    environment:
+      - NODE_ENV=development
+    ports:
+      - "3000:3000"
+    depends_on:
+      - mongodb
+    networks:
+      - app-network
+
+  #No authentication is provided here - JUST A DEMO! That would absolutely
+  #be needed for a "real" application
+  mongodb:
+    container_name: mongodb
+    image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-mongo:latest
+    networks:
+      - app-network
+
+  aspnet:
+    container_name: aspnetcoreapp
+    image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-aspnet:latest
+    ports:
+     - "5000:5000"
+    networks:
+      - app-network
+
+  postgres:
+    container_name: postgres
+    image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-postgres:latest
+    environment:
+      POSTGRES_PASSWORD: password
+    networks:
+      - app-network
+
+  cadvisor:
+    container_name: cadvisor
+    image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-cadvisor:latest
+    ports:
+      - "8080:8080"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

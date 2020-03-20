@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: aspnet
+spec:
+  selector:
+    matchLabels:
+      app: aspnet
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: aspnet
+    spec:
+      containers:
+      - image: 443007076818.dkr.ecr.us-east-2.amazonaws.com/cm-aspnet:latest
+        name: aspnetcoreapp
+        ports:
+        - containerPort: 5000
+        imagePullPolicy: Always
+      restartPolicy: Always

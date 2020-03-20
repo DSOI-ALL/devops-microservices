@@ -33,11 +33,11 @@ services:
       - NODE_ENV=development
     ports:
       - "3000:3000"
-    depends_on: 
+    depends_on:
       - mongodb
     networks:
       - app-network
-      
+
   #No authentication is provided here - JUST A DEMO! That would absolutely
   #be needed for a "real" application
   mongodb:

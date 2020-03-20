@@ -6,7 +6,6 @@ COPY . .
 RUN dotnet publish --output ./out
 
 FROM microsoft/dotnet:aspnetcore-runtime
-LABEL author="Dan Wahlin" 
 WORKDIR /var/www/aspnetcoreapp
 COPY --from=publish /publish/out .
 ENV ASPNETCORE_URLS=http://*:5000
@@ -21,7 +20,7 @@ ENTRYPOINT ["dotnet", "AspNetCorePostgreSQLDockerApp.dll"]
 
 # Option 1
 # Start PostgreSQL and ASP.NET Core (link ASP.NET core to ProgreSQL container with legacy linking)
- 
+
 # docker run -d --name my-postgres -e POSTGRES_PASSWORD=password postgres
 # docker run -d -p 5000:5000 --link my-postgres:postgres [yourDockerHubID]/dotnet:1.0.0
 

@@ -1,0 +1,10 @@
+apiVersion: extensions/v1beta1
+kind: NetworkPolicy
+metadata:
+  name: app-network
+spec:
+  podSelector: {}
+  ingress:
+  - {}
+  policyTypes:
+  - Ingress

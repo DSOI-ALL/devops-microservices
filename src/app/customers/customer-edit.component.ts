@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-
+import { ActivatedRoute, Router } from '@angular/router';
 import { DataService } from '../core/data.service';
 import { ICustomer, IState } from '../shared/interfaces';
 import { ValidationService } from '../shared/validation.service';
+
 
 @Component({
   selector: 'customer-edit',
@@ -27,9 +27,9 @@ export class CustomerEditComponent implements OnInit {
   errorMessage: string;
   deleteMessageEnabled: boolean;
   operationText: string = 'Insert';
-  
-  constructor(private router: Router, 
-              private route: ActivatedRoute, 
+
+  constructor(private router: Router,
+              private route: ActivatedRoute,
               private dataService: DataService,
               private formBuilder: FormBuilder) { }
 
@@ -59,7 +59,6 @@ export class CustomerEditComponent implements OnInit {
       this.customerForm = this.formBuilder.group({
         firstName:  [this.customer.firstName, Validators.required],
         lastName:   [this.customer.lastName, Validators.required],
-        gender:     [this.customer.gender, Validators.required],
         email:      [this.customer.email, [Validators.required, ValidationService.emailValidator]],
         address:    [this.customer.address, Validators.required],
         city:       [this.customer.city, Validators.required],
@@ -70,11 +69,11 @@ export class CustomerEditComponent implements OnInit {
   getStates() {
     this.dataService.getStates().subscribe((states: IState[]) => this.states = states);
   }
-  
+
   submit({ value, valid }: { value: ICustomer, valid: boolean }) {
-      
+
       value.id = this.customer.id;
-      value.zip = this.customer.zip || 0; 
+      value.zip = this.customer.zip || 0;
       // var customer: ICustomer = {
       //   id: this.customer.id,
       // };
@@ -104,10 +103,10 @@ export class CustomerEditComponent implements OnInit {
             }
           },
           (err) => console.log(err));
-          
+
       }
   }
-  
+
   cancel(event: Event) {
     event.preventDefault();
     this.router.navigate(['/customers']);

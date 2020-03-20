@@ -17,12 +17,12 @@
                 <a class="btn btn-default" [routerLink]="['/customers', '0']">Add New Customer</a>
             </div>
         </div>
-    
+
         <customers-grid [customers]="filteredCustomers"></customers-grid>
 
-        <pagination [totalItems]="totalRecords" 
-            [pageSize]="pageSize" 
+        <pagination [totalItems]="totalRecords"
+            [pageSize]="pageSize"
             (pageChanged)="pageChanged($event)"></pagination>
-          
+
     </div>
 </div>

@@ -18,22 +18,6 @@
       <div class="alert alert-danger" [hidden]="customerForm.controls.lastName.untouched || customerForm.controls.lastName.valid">Last Name is required</div>
     </div>
     <div class="form-group">
-      <label>Gender</label>
-      <br />
-      <div class="radio">
-        <label>
-          <input type="radio" name="gender" formControlName="gender" value="Male" />
-          Male
-        </label>
-      </div>
-      <div class="radio">
-        <label>
-          <input type="radio" name="gender" formControlName="gender" value="Female"  /> 
-          Female
-        </label>
-      </div>
-    </div>
-    <div class="form-group">
       <label>Email</label>
       <input type="email" class="form-control" formControlName="email" />
       <div class="alert alert-danger" [hidden]="customerForm.controls.email.untouched || customerForm.controls.email.valid">Email is required and must be valid</div>

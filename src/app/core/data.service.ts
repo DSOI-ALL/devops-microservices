@@ -1,23 +1,22 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
-import { HttpClient, HttpResponse, HttpErrorResponse } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
+import { ICustomer, ICustomerResponse, IPagedResults, IState } from '../shared/interfaces';
 
-import { ICustomer, IOrder, IState, 
-         IPagedResults, ICustomerResponse } from '../shared/interfaces';
+
+
 
 @Injectable()
 export class DataService {
-  
+
     //Call ASP.NET Core 'microservice'
     baseUrl: string = 'http://localhost:5000/api/customers';
     //Call Node.js 'microservice'
     statesUrl: string = 'http://localhost:3000/api/states';
 
     constructor(private http: HttpClient) { }
-    
+
     getCustomers() : Observable<ICustomer[]> {
         return this.http.get<ICustomer[]>(this.baseUrl)
                 .pipe(
@@ -46,7 +45,7 @@ export class DataService {
                     catchError(this.handleError)
                 );
     }
-    
+
     getCustomer(id: string) : Observable<ICustomer> {
         return this.http.get<ICustomer>(this.baseUrl + '/' + id)
                 .pipe(
@@ -64,9 +63,9 @@ export class DataService {
                    catchError(this.handleError)
                 );
     }
-   
+
     updateCustomer(customer: ICustomer) : Observable<ICustomer> {
-        return this.http.put<ICustomerResponse>(this.baseUrl + '/' + customer.id, customer) 
+        return this.http.put<ICustomerResponse>(this.baseUrl + '/' + customer.id, customer)
                 .pipe(
                    map((data) => {
                        console.log('updateCustomer status: ' + data.status);
@@ -82,7 +81,7 @@ export class DataService {
                    catchError(this.handleError)
                 );
     }
-   
+
     getStates(): Observable<IState[]> {
         return this.http.get<IState[]>(this.statesUrl)
                 .pipe(
@@ -101,9 +100,9 @@ export class DataService {
             }
         }
     }
-    
+
     private handleError(error: HttpErrorResponse) {
-        console.error('server error:', error); 
+        console.error('server error:', error);
         if (error.error instanceof Error) {
           let errMessage = error.error.message;
           return Observable.throw(errMessage);
