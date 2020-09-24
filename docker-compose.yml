@@ -5,19 +5,15 @@
 version: '3.1'
 
 services:
-
   nginx:
     container_name: nginx
     image: nginx
     build:
       context: .
       dockerfile: .docker/nginx.dockerfile
-    volumes:
-      - ./dist:/usr/share/nginx/html
     ports:
       - "80:80"
       - "443:443"
-
     networks:
       - app-network
 
@@ -26,9 +22,7 @@ services:
     image: nodeapp
     build:
       context: ./microservices/node
-      dockerfile: .docker/node.development.dockerfile
-    volumes:
-      - ./microservices/node:/var/www/angularnoderestfulservice
+      dockerfile: node.development.dockerfile
     environment:
       - NODE_ENV=development
     ports:
