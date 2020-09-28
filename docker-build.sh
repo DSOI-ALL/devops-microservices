@@ -41,6 +41,16 @@ $pullcadvisor
 
 echo 'cadvisor pull complete'
 
+removedangling="docker rmi `docker images | grep "<none>" | awk {'print $3'}`"
+
+removedotnetsdk="docker rmi microsoft/dotnet:sdk"
+
+$removedangling
+
+$removedotnetsdk
+
+echo 'removing unused images'
+
 echo
 echo Microservices Container Build Complete
 echo ==============================
